@@ -1,6 +1,6 @@
 pipeline{
     stages {
-        stage ('Scans'){
+        stage ('Scans1'){
             steps {
                 echo "Scan Pipeline"
             }
