@@ -1,38 +1,24 @@
-pipeline{
+pipeline {
     agent any
     stages {
-        stage ('Scans1'){
+        stage ('Build') {
             steps {
-                echo "Scan Pipeline"
+                echo "Build Pipeline"
             }
         }
-        stage ('dockerbuild'){
+         stage ('Scans') {
+            steps {
+                echo "Scans Pipeline"
+            }
+        }
+        stage ('DockerBuild') {
             steps {
                 echo "Docker Pipeline"
             }
         }
-        stage ('devdeploy')
-        {
+         stage ('Devpipeline') {
             steps {
                 echo "dev Pipeline"
-            }
-        }
-        stage ('DeploytoTest')
-        {
-            steps {
-                echo "Test Pipeline"
-            }
-        }
-         stage ('DeploytoStage')
-        {
-            steps {
-                echo "Stage Pipeline"
-            }
-        }
-         stage ('DeploytoProd')
-        {
-            steps {
-                echo "Prod Pipeline"
             }
         }
     }
