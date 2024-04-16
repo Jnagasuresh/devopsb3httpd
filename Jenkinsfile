@@ -1,37 +1,15 @@
-pipeline{
+pipeline {
+    agent any
+    environment {
+        DEPLOY_TO = 'production'
+    }
     stages {
-        stage ('Scans'){
-            steps {
-                echo "Scan Pipeline"
+        stage ('ProdDeploy'){
+            when {
+                environment name: 'DEPLOY_TO', value: 'other'
             }
-        }
-        stage ('dockerbuild'){
             steps {
-                echo "Docker Pipeline"
-            }
-        }
-        stage ('devdeploy')
-        {
-            steps {
-                echo "dev Pipeline"
-            }
-        }
-        stage ('DeploytoTest')
-        {
-            steps {
-                echo "Test Pipeline"
-            }
-        }
-         stage ('DeploytoStage')
-        {
-            steps {
-                echo "Stage Pipeline"
-            }
-        }
-         stage ('DeploytoProd')
-        {
-            steps {
-                echo "Prod Pipeline"
+                echo "Deployin to production"
             }
         }
     }
