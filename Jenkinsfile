@@ -1,26 +1,31 @@
-// based on the branch condition, I can create the pipeline
-// BRANCH_NAME variable is only available in Multi Branch pipeline/Git hub or pipelines
-
 pipeline {
     agent any
-    environment {
-        DEPLOY_TO = "production"
-    }
     stages {
-        stage ('DeploytoDev')
-        {
+        stage ('Build') {
             steps {
-                echo "Deploy to Dev environment"
+                echo "Building the dev"
             }
         }
-        stage ('ProdDeploy')
-        {
-            when {
-                // Branch condition
-                expression {BRANCH_NAME == /(production|staging)/ }
-            }
-            steps {
-                echo "Production deployments"
+        stage ('ParallelStageScans') {
+            parallel {
+                stage ('Sonar') {
+                        steps {
+                            echo "Sonar Stage Executing"
+                            sleep 10
+                        }
+                    }
+                stage ('Fortify') {
+                        steps {
+                            echo "Sonar Fortiy Executing"
+                            sleep 10
+                        }
+                    }
+                    stage ('Prisma') {
+                        steps {
+                            echo "Sonar Prisma Executing"
+                            sleep 10
+                        }
+                    }
             }
         }
     }
