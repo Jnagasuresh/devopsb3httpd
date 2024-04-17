@@ -18,7 +18,7 @@ pipeline {
         }
          stage ('DeployToProd') {
             steps {
-                timout (time: 300, unit: 'SECONDS') {
+                timeout (time: 300, unit: 'SECONDS') {
                     input message: 'Would you like to Promote to Prod ??', ok: 'yes', submitter: 'maha'
                 }
                 echo "Deploying to prod app"
