@@ -1,24 +1,16 @@
 pipeline {
     agent any
+    environment {
+        DEPLOY_TO = 'production'
+    }
     stages {
-        stage ('Build') {
-            steps {
-                echo "Build Pipeline"
+        stage ('ProdDeploy') {}
+        
+            when {
+                equals expected: 5, actual: currentBuild.number
             }
-        }
-         stage ('Scans') {
             steps {
-                echo "Scans Pipeline"
-            }
-        }
-        stage ('DockerBuild') {
-            steps {
-                echo "Docker Pipeline"
-            }
-        }
-         stage ('Devpipeline') {
-            steps {
-                echo "dev Pipeline"
+                echo "deploying to production"
             }
         }
     }
