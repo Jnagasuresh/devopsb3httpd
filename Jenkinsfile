@@ -17,7 +17,7 @@ pipeline {
         {
             when {
                 // Branch condition
-                expression {BRANCH_NAME == /(production|staging)/ }
+                expression {BRANCH_NAME ==~ /(production|staging)/ }
             }
             steps {
                 echo "Production deployments"
