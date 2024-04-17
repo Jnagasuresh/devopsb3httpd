@@ -1,21 +1,28 @@
 pipeline {
     agent any
-    parameters {
-        string(name:'NAME', defaultValue:'Nags', description: 'Name of the person')
-        text(name:'PARA', defaultValue:'', description: 'Enter highlevel  fixes for the release')
-        choice(name:'ENV', choices: ['dev', 'Test', 'Prod'], description: 'Which environment would you like to deploy')
-        booleanParam(name:'TOOGLEAME', defaultValue:true, description: 'Would you like to scan')
-        password(name:'SECRET', defaultValue:'SECUREPASSWORD', description: 'Enter the password')
-    }
     stages {
-        stage ('ParametersExample') {
+        stage ('Build') {
             steps {
-                echo "Welcom ${params.NAME}"
-                echo "Fixes done are  ${params.PARA}"
-                echo "Deploying to  ${params.ENV}"
-                echo "The Password entered is ${params.SECRET}"
+                echo "building the app"
             }
         }
-
+         stage ('Testing') {
+            steps {
+                echo "Testing the app"
+            }
+        }
+         stage ('DeployToDev') {
+            steps {
+                echo "Deploying to Dev Env"
+            }
+        }
+         stage ('DeployToProd') {
+            steps {
+                timout (time: 300, unit: 'SECONDS') {
+                    input message: 'Would you like to Promote to Prod ??', ok: 'yes', submitter: 'maha'
+                }
+                echo "Deploying to prod app"
+            }
+        }
     }
 }
